@@ -37,10 +37,10 @@ export default function Home() {
         throw new Error('Network response was not ok');
       }
 
-      const data = await response.json(); // Assuming the API returns JSON
+      const data = await response.json();
       setMessages((messages) => [
         ...messages,
-        { role: 'assistant', content: data.response }, // Adjust based on your API response structure
+        { role: 'assistant', content: data.response },
       ]);
     } catch (error) {
       console.error('Error:', error);
@@ -78,16 +78,17 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor="white" // Set background color to white
+      bgcolor="#121212" // Dark background
     >
       <Stack
         direction={'column'}
         width="500px"
         height="700px"
-        border="1px solid black"
+        border="1px solid #444" // Darker border
         p={2}
         spacing={3}
-        bgcolor="white" // Set background color to white for the chat area
+        bgcolor="#ffffff" // Light background for chat area
+        borderRadius={8} // Rounded corners
       >
         <Stack
           direction={'column'}
@@ -103,10 +104,11 @@ export default function Home() {
               justifyContent={msg.role === 'assistant' ? 'flex-start' : 'flex-end'}
             >
               <Box
-                bgcolor={msg.role === 'assistant' ? 'primary.main' : 'secondary.main'}
+                bgcolor={msg.role === 'assistant' ? '#1976d2' : '#4caf50'} // Blue for assistant, green for user
                 color="white"
                 borderRadius={16}
-                p={3}
+                p={2}
+                maxWidth="70%" // Limit message width
               >
                 {msg.content}
               </Box>
@@ -122,11 +124,16 @@ export default function Home() {
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
+            variant="outlined"
+            InputProps={{
+              style: { backgroundColor: '#f5f5f5' }, // Light input background
+            }}
           />
           <Button 
             variant="contained" 
             onClick={sendMessage}
             disabled={isLoading}
+            style={{ backgroundColor: '#1976d2' }} // Button color
           >
             {isLoading ? 'Sending...' : 'Send'}
           </Button>
