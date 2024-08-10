@@ -1,72 +1,92 @@
-'use client'
+"use client";
 
-import { useRef } from 'react';
-import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { blue, grey } from "@mui/material/colors";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Home() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [messages, setMessages] = useState([
     {
-      role: 'assistant',
-      content: "Hi! I'm the MAAN support assistant. How can I help you today?",
+      role: "assistant",
+      content:
+        "Hello, I am MAAN Support, your personal AI companion. How can I help you today?",
     },
   ]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMessage = async () => {
-    if (!message.trim() || isLoading) return;
+    if (!message.trim() || isLoading) return; // Prevent sending empty or duplicate messages
     setIsLoading(true);
 
-    // Add user message to the chat
+    // Add user's message and a placeholder for assistant's response
     setMessages((prevMessages) => [
       ...prevMessages,
-      { role: 'user', content: message },
-      { role: 'assistant', content: '' },
+      { role: "user", content: message },
+      { role: "assistant", content: "" },
     ]);
+    setMessage(""); // Clear the input field
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo', // Changed model to gpt-3.5-turbo
-          messages: [...messages, { role: 'user', content: message }],
-        }),
+        body: JSON.stringify([...messages, { role: "user", content: message }]),
       });
 
-      // Check if the response is okay
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = decoder.decode(value, { stream: true });
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+          const lastMessageIndex = updatedMessages.length - 1;
+          updatedMessages[lastMessageIndex] = {
+            ...updatedMessages[lastMessageIndex],
+            content: updatedMessages[lastMessageIndex].content + text,
+          };
+          return updatedMessages;
+        });
       }
-
-      const data = await response.json();
-
-      // Check if the response contains the expected data
-      if (!data || !data.response) {
-        throw new Error('Response does not contain expected data.');
-      }
-
-      // Add assistant's response to the chat
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: data.response },
-      ]);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: 'assistant', content: "I'm sorry, but I encountered an error: " + error.message },
+        {
+          role: "assistant",
+          content:
+            "I'm sorry, but I encountered an error. Please try again later.",
+        },
       ]);
+    } finally {
+      setIsLoading(false);
     }
-    setMessage('');
-    setIsLoading(false);
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -74,12 +94,8 @@ export default function Home() {
 
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
@@ -88,57 +104,57 @@ export default function Home() {
       height="100vh"
       display="flex"
       flexDirection="column"
-      justifyContent="flex-start"
+      justifyContent="center"
       alignItems="center"
-      bgcolor="#121212" // Dark background
-      overflow="hidden" // Prevent overflow
+      bgcolor={grey[100]}
+      p={2}
     >
-      <Typography variant="h4" color="white" mb={2} fontFamily="cursive">MAAN Chatbot</Typography> {/* Heading with custom font */}
       <Stack
-        direction={'column'}
-        width="500px"
-        height="700px"
-        border="1px solid #444" // Darker border
+        direction="column"
+        width={isMobile ? "90vw" : "500px"}
+        height={isMobile ? "80vh" : "80vh"}
+        border={isMobile ? "none" : `1px solid ${grey[300]}`}
+        borderRadius={2}
+        bgcolor="white"
         p={2}
-        spacing={3}
-        bgcolor="#ffffff" // Light background for chat area
-        borderRadius={8} // Rounded corners
-        overflow="hidden" // Prevent overflow
+        spacing={2}
+        boxShadow={3}
       >
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Link href="https://github.com/iam-weijie/ai-companion" target="_blank" rel="noopener noreferrer">
+            <Avatar
+              src="chatbot-pfp.png"
+              alt="MAAN"
+              sx={{ width: isMobile ? 60 : 80, height: isMobile ? 60 : 80, mb: 1 }}
+            />
+          </Link>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: isMobile ? "1rem" : "1.25rem", fontWeight: "bold" }}
+          >
+            MAAN
+          </Typography>
+        </Box>
+        <Divider />
         <Stack
-          direction={'column'}
+          direction="column"
           spacing={2}
           flexGrow={1}
           overflow="auto"
-          maxHeight="100%"
-          sx={{
-            '&::-webkit-scrollbar': {
-              width: '8px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#888',
-              borderRadius: '10px',
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              background: '#555',
-            },
-          }}
         >
           {messages.map((msg, index) => (
             <Box
               key={index}
               display="flex"
-              justifyContent={msg.role === 'assistant' ? 'flex-start' : 'flex-end'}
+              justifyContent={msg.role === "assistant" ? "flex-start" : "flex-end"}
             >
               <Box
-                bgcolor={msg.role === 'assistant' ? '#00796b' : '#3f51b5'} // Teal for assistant, blue for user
-                color="white"
-                borderRadius={16}
+                bgcolor={msg.role === "assistant" ? grey[200] : blue[600]}
+                color={msg.role === "assistant" ? "black" : "white"}
+                borderRadius={4}
                 p={2}
-                maxWidth="70%" // Limit message width
+                maxWidth="80%"
+                wordBreak="break-word"
               >
                 {msg.content}
               </Box>
@@ -146,26 +162,26 @@ export default function Home() {
           ))}
           <div ref={messagesEndRef} />
         </Stack>
-        <Stack direction={'row'} spacing={2}>
+        <Divider />
+        <Stack direction="row" spacing={2} alignItems="center">
           <TextField
             label="Message"
             fullWidth
+            multiline
+            rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             disabled={isLoading}
             variant="outlined"
-            InputProps={{
-              style: { backgroundColor: '#f5f5f5' }, // Light input background
-            }}
           />
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             onClick={sendMessage}
             disabled={isLoading}
-            style={{ backgroundColor: '#00796b' }} // Button color matching assistant's message
+            sx={{ height: "100%" }}
           >
-            {isLoading ? 'Sending...' : 'Send'}
+            {isLoading ? "Sending..." : "Send"}
           </Button>
         </Stack>
       </Stack>
