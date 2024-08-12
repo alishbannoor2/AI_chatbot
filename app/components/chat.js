@@ -159,7 +159,7 @@ export default function Page() {
               alignItems="flex-start"
             >
               <Avatar
-                src={msg.role === "assistant" ? "chatbot-pfp.png" : "user-pfp.png"} // Adjust as needed
+                src={msg.role === "assistant" ? "chatbot-pfp.png" : "user-pfp.png"} // User's profile picture
                 alt={msg.role}
                 sx={{
                   width: isMobile ? 40 : 50,
