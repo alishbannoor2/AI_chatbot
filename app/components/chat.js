@@ -105,59 +105,81 @@ export default function Page() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      bgcolor={grey[100]}
-      p={2}
+      sx={{
+        bgcolor: "#56b8a0", // Background color
+        p: 2,
+        fontFamily: "'Press Start 2P', sans-serif", // Pixel font
+        color: "#d7d8b6", // Text color
+      }}
     >
       <Stack
         direction="column"
         width={isMobile ? "90vw" : "500px"}
         height="80vh"
-        border={isMobile ? "none" : `1px solid ${grey[300]}`}
         borderRadius={2}
-        bgcolor="white"
+        bgcolor="#56b8a0" // Updated background color
         p={2}
         spacing={2}
         boxShadow={3}
       >
         <Box display="flex" flexDirection="column" alignItems="center">
-          <Link href="https://github.com/iam-weijie/ai-companion" target="_blank" rel="noopener noreferrer">
+          <Link
+            href="https://github.com/MalaikaJunaid/AI-Chatbot"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Avatar
               src="chatbot-pfp.png"
               alt="MAAN"
-              sx={{ width: isMobile ? 60 : 80, height: isMobile ? 60 : 80, mb: 1 }}
+              sx={{
+                width: isMobile ? 60 : 80,
+                height: isMobile ? 60 : 80,
+                mb: 1,
+              }}
             />
           </Link>
           <Typography
             variant="h6"
-            sx={{ fontSize: isMobile ? "1rem" : "1.25rem", fontWeight: "bold" }}
+            sx={{
+              fontSize: isMobile ? "1rem" : "1.25rem",
+              fontWeight: "bold",
+              color: "#d7d8b6", // Text color
+            }}
           >
             MAAN
           </Typography>
         </Box>
         <Divider />
-        <Stack
-          direction="column"
-          spacing={2}
-          flexGrow={1}
-          overflow="auto"
-        >
+        <Stack direction="column" spacing={2} flexGrow={1} overflow="auto">
           {messages.map((msg, index) => (
-            <Box
+            <Stack
               key={index}
-              display="flex"
-              justifyContent={msg.role === "assistant" ? "flex-start" : "flex-end"}
+              direction={msg.role === "assistant" ? "row" : "row-reverse"}
+              spacing={2}
+              alignItems="flex-start"
             >
+              <Avatar
+                src={msg.role === "assistant" ? "chatbot-pfp.png" : "user-pfp.png"} // Adjust as needed
+                alt={msg.role}
+                sx={{
+                  width: isMobile ? 40 : 50,
+                  height: isMobile ? 40 : 50,
+                }}
+              />
               <Box
-                bgcolor={msg.role === "assistant" ? grey[200] : blue[600]}
-                color={msg.role === "assistant" ? "black" : "white"}
-                borderRadius={4}
-                p={2}
-                maxWidth="80%"
-                wordBreak="break-word"
+                sx={{
+                  bgcolor: msg.role === "assistant" ? grey[200] : blue[600],
+                  color: msg.role === "assistant" ? "black" : "white",
+                  borderRadius: 4,
+                  p: 2,
+                  maxWidth: "80%",
+                  wordBreak: "break-word",
+                  fontFamily: "'Press Start 2P', sans-serif", // Pixel font
+                }}
               >
                 {msg.content}
               </Box>
-            </Box>
+            </Stack>
           ))}
           <div ref={messagesEndRef} />
         </Stack>
@@ -173,12 +195,23 @@ export default function Page() {
             onKeyPress={handleKeyPress}
             disabled={isLoading}
             variant="outlined"
+            sx={{
+              fontFamily: "'Press Start 2P', sans-serif", // Pixel font
+              "& .MuiInputBase-root": {
+                fontFamily: "'Press Start 2P', sans-serif", // Pixel font
+              },
+            }}
           />
           <Button
             variant="contained"
             onClick={sendMessage}
             disabled={isLoading}
-            sx={{ height: "100%" }}
+            sx={{
+              height: "100%",
+              fontFamily: "'Press Start 2P', sans-serif", // Pixel font
+              bgcolor: "#d7d8b6", // Button color
+              color: "black",
+            }}
           >
             {isLoading ? "Sending..." : "Send"}
           </Button>
