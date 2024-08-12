@@ -1,31 +1,14 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Typography, Stack } from "@mui/material";
 import Page from "./chat"; // Adjust the path as needed
-import { UserAuth } from "../context/AuthContext"; // Adjust the path as needed
 
 export default function ChatApp() {
-  const { user, googleSignIn, logOut } = UserAuth(); // Access user and auth methods
   const [loading, setLoading] = useState(true);
-
-  const handleSignIn = async () => {
-    try {
-      await googleSignIn(); // Attempt to sign in
-    } catch (error) {
-      console.log("Sign-in error:", error); // Handle sign-in error
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await logOut(); // Log out user
-    } catch (error) {
-      console.log("Sign-out error:", error); // Handle sign-out error
-    }
-  };
+  const [chatStarted, setChatStarted] = useState(false);
 
   useEffect(() => {
     setLoading(false); // Set loading to false
-  }, [user]);
+  }, []);
 
   if (loading) return <Typography>Loading...</Typography>; // Display loading message
 
@@ -38,10 +21,10 @@ export default function ChatApp() {
       alignItems="center"
       bgcolor="grey.100"
     >
-      {user ? (
-        <Page onSignOut={handleSignOut} />
+      {chatStarted ? (
+        <Page />
       ) : (
-        <LandingPage onStartChat={handleSignIn} />
+        <LandingPage onStartChat={() => setChatStarted(true)} />
       )}
     </Box>
   );
@@ -57,7 +40,7 @@ function LandingPage({ onStartChat }) {
       justifyContent="center"
       alignItems="center"
       sx={{
-        backgroundImage: 'url(/LandingPagebg.png)', // Ensure this image path is correct
+        backgroundImage: '/LandingPagebg.png', // Ensure this image path is correct
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -76,10 +59,7 @@ function LandingPage({ onStartChat }) {
           Your Personal AI Companion
         </Typography>
         <Button variant="contained" onClick={onStartChat}>
-          Sign In
-        </Button>
-        <Button variant="outlined" onClick={onStartChat}>
-          Sign Up
+          Start Chat
         </Button>
       </Stack>
     </Box>
