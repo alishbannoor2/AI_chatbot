@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="left">MAAN AI chatbot</h1>
 
-## Getting Started
+###
 
-First, run the development server:
+<div align="center">
+  <img height="500" src="https://github.com/alishbannoor2/AI_chatbot/blob/ade0c1954c3f22910d1e46450af26840ee338386/app/demo1.jpg"  />
+                
+  <img height="500" src="https://github.com/alishbannoor2/AI_chatbot/blob/ade0c1954c3f22910d1e46450af26840ee338386/app/demo2.jpg"  />
+</div>
+
+###
+
+<p align="left">Meet MAAN: "𝙸 𝚊𝚖 𝚝𝚑𝚎 𝙱𝚊𝚐𝚐𝚎 𝚏𝚊𝚖𝚒𝚕𝚢'𝚜 𝚍𝚎𝚜𝚔𝚝𝚘𝚙 𝚌𝚘𝚖𝚙𝚞𝚝𝚎𝚛, 𝚛𝚎𝚜𝚒𝚍𝚒𝚗𝚐 𝚒𝚗 𝚝𝚑𝚎 𝚊𝚝𝚝𝚒𝚌. 𝙰𝚛𝚖𝚎𝚍 𝚠𝚒𝚝𝚑 𝚊 𝚏𝚞𝚕𝚕 𝚑𝚊𝚛𝚍 𝚍𝚛𝚒𝚟𝚎 𝚘𝚏 𝚔𝚗𝚘𝚠𝚕𝚎𝚍𝚐𝚎 𝚊𝚗𝚍 𝚊 𝚑𝚎𝚊𝚕𝚝𝚑𝚢 𝚍𝚘𝚜𝚎 𝚘𝚏 𝚜𝚊𝚛𝚌𝚊𝚜𝚖."
+ <br> This chatbot is not just a digital assistant; it’s a quirky companion that brings the charm of an old-school computer into the modern age.</p>
+
+###
+
+<h1 align="left">Built With</h1>
+
+###
+
+<p align="left">This MAAN chatbot https://ai-chatbot-lake.vercel.app/ is built using these technologies.<br><br>▪ React.js<br>▪ Next.js<br>▪ MUI<br>▪ CSS3<br>▪ VsCode<br>▪ Vercel<br>▪ Gemini</p>
+
+###
+
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="45" alt="css3 logo"  />
+  <img width="15" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="45" alt="vscode logo"  />
+  <img width="15" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="45" alt="react logo"  />
+  <img width="15" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="45" alt="nextjs logo"  />
+  <img width="15" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg" height="45" alt="materialui logo"  />
+</div>
+
+###
+
+<h1 align="left">Features</h1>
+
+###
+
+<p align="left">🤖 Quirky Personality <br><br>🧠 Advanced AI Capabilities <br><br>📱 Fully Responsive<br><br>📚 Rich Knowledge Base <br><br>🖥️ User-Friendly Interface</p>
+
+###
+
+# Local Quickstart
+
+Follow these steps to get your own Chatbot UI instance running locally.
+
+### 1. Clone the Repo
+
+```bash
+git clone https://github.com/alishbannoor2/AI_chatbot.git
+```
+
+### 2. Install Dependencies
+
+Open a terminal in the root directory of your local Chatbot UI repository and run:
+
+```bash
+npm install
+```
+### 3. Run Chatbot:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+<br>Open http://localhost:3000 to view it in the browser. The page will reload if you make edits.</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+###
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Usage
 
-## Learn More
+Open the project folder and navigate to `/app/components/`.<br>You will find all the components used and you can edit your information accordingly.</p>
 
-To learn more about Next.js, take a look at the following resources:
+###
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Authors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This chatbot is created with contributions from:<br><br>
+  ▪ Malaika Junaid ([@MalaikaJunaid](https://github.com/MalaikaJunaid))<br>
+  ▪ Nicole Payne ([@Npcodes1](https://github.com/Npcodes1))<br>
+  ▪ Aimen ([@Aimen1091](https://github.com/Aimen1091))
+</p>
 
-## Deploy on Vercel
+###
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<h3 align="left">Show your support</h3>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+###
+
+<p align="left">Give a ⭐ if you like MAAN chatbot!</p>
+
+###
