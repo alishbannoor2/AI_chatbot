@@ -62,6 +62,9 @@ Open a terminal in the root directory of your local Chatbot UI repository and ru
 ```bash
 npm install
 ```
+```bash
+npm install @mui/material @emotion/react @emotion/styled
+```
 ### 3. Run Chatbot:
 
 ```bash
